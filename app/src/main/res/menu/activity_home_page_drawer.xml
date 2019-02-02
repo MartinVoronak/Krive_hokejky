@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/zapis"
+            android:id="@+id/enroll"
             android:icon="@drawable/ic_menu_camera"
             android:title="Zapísať sa" />
         <item
-            android:id="@+id/hraci"
+            android:id="@+id/players"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Hráči" />
         <item
-            android:id="@+id/pridat"
+            android:id="@+id/addPlayer"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Pridať hráča" />
         <item
-            android:id="@+id/minule"
+            android:id="@+id/playedMatches"
             android:icon="@drawable/ic_menu_manage"
             android:title="Minulé zápasy" />
     </group>
