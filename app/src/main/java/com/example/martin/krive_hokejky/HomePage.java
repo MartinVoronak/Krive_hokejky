@@ -3,6 +3,7 @@ package com.example.martin.krive_hokejky;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +48,29 @@ public class HomePage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Backendless.setUrl(Constants.SERVER_URL);
+        Backendless.initApp(getApplicationContext(), Constants.APPLICATION_ID, Constants.API_KEY);
+
+
+        Player player = new Player();
+        player.firstName = "Tomas";
+        player.surname = "Tatar";
+        player.rating = 55;
+        Backendless.Data.of(Player.class).save( player,
+                new AsyncCallback() {
+
+            @Override
+            public void handleResponse(Object response) {
+                Log.i("BACKENDLESS", "response: "+response);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e( "BACKENDLESS", "Server reported an error " + fault.getMessage() );
+            }
+        });
+
     }
 
     @Override
@@ -80,13 +111,13 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.zapis) {
+        if (id == R.id.enroll) {
             // Handle the camera action
-        } else if (id == R.id.hraci) {
+        } else if (id == R.id.players) {
 
-        } else if (id == R.id.pridat) {
+        } else if (id == R.id.addPlayer) {
 
-        } else if (id == R.id.minule) {
+        } else if (id == R.id.playedMatches) {
 
         } else if (id == R.id.nav_share) {
 
