@@ -80,13 +80,13 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.zapis) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.hraci) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.pridat) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.minule) {
 
         } else if (id == R.id.nav_share) {
 
