@@ -21,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddPlayerActivity" />
+        <activity android:name=".PlayedMatchesActivity" />
+        <activity android:name=".LottieResult"></activity>
     </application>
 
 </manifest>

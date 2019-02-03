@@ -1,5 +1,6 @@
 package com.example.martin.krive_hokejky;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,26 +52,6 @@ public class HomePage extends AppCompatActivity
 
         Backendless.setUrl(Constants.SERVER_URL);
         Backendless.initApp(getApplicationContext(), Constants.APPLICATION_ID, Constants.API_KEY);
-
-
-        Player player = new Player();
-        player.firstName = "Tomas";
-        player.surname = "Tatar";
-        player.rating = 55;
-        Backendless.Data.of(Player.class).save( player,
-                new AsyncCallback() {
-
-            @Override
-            public void handleResponse(Object response) {
-                Log.i("BACKENDLESS", "response: "+response);
-            }
-
-            @Override
-            public void handleFault(BackendlessFault fault) {
-                Log.e( "BACKENDLESS", "Server reported an error " + fault.getMessage() );
-            }
-        });
-
     }
 
     @Override
@@ -116,8 +97,12 @@ public class HomePage extends AppCompatActivity
         } else if (id == R.id.players) {
 
         } else if (id == R.id.addPlayer) {
+            Intent intent = new Intent(HomePage.this, AddPlayerActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.playedMatches) {
+            Intent intent = new Intent(HomePage.this, PlayedMatchesActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 

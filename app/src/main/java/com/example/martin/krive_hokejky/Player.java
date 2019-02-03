@@ -2,10 +2,12 @@ package com.example.martin.krive_hokejky;
 
 public class Player {
 
+    //TODO goals and assissts
     String firstName = "";
     String surname = "";
     int rating = 0;
 
+    //BACKENDLESS - Class must contain default, public, no-argument constructor.
     public Player() {
     }
 
