@@ -1,6 +1,5 @@
 package com.example.martin.krive_hokejky;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,13 +7,14 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.martin.krive_hokejky.Activities.LottieResultActivity;
 
 public class Utilities {
 
     public static String animationName = "";
 
-
-    public static void setAnimationName(String value) {
+    public static void setAnimationName(LottieAnimationView animationView, String value) {
+        animationView.setAnimation(value);
         animationName = value;
     }
     public static void log(String tag, String s){
@@ -31,9 +31,8 @@ public class Utilities {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                         Utilities.log(Constants.LOG_ADD_PLAYER, "yes clicked");
-//                      APIcalls.doAction(action, animationView);
 
-                        Intent intent = new Intent(context, LottieResult.class);
+                        Intent intent = new Intent(context, LottieResultActivity.class);
                         intent.putExtra("action", action);
                         context.startActivity(intent);
 

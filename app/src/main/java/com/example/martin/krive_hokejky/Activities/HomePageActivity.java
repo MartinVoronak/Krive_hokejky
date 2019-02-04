@@ -1,10 +1,9 @@
-package com.example.martin.krive_hokejky;
+package com.example.martin.krive_hokejky.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,13 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.backendless.Backendless;
-import com.backendless.async.callback.AsyncCallback;
-import com.backendless.exceptions.BackendlessFault;
+import com.example.martin.krive_hokejky.APIcalls;
+import com.example.martin.krive_hokejky.Constants;
+import com.example.martin.krive_hokejky.R;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class HomePage extends AppCompatActivity
+public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -95,13 +92,16 @@ public class HomePage extends AppCompatActivity
         if (id == R.id.enroll) {
             // Handle the camera action
         } else if (id == R.id.players) {
+            Intent intent = new Intent(HomePageActivity.this, LottieResultActivity.class);
+            intent.putExtra("action", APIcalls.RETRIEVE);
+            startActivity(intent);
 
         } else if (id == R.id.addPlayer) {
-            Intent intent = new Intent(HomePage.this, AddPlayerActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, AddPlayerActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.playedMatches) {
-            Intent intent = new Intent(HomePage.this, PlayedMatchesActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, PlayedMatchesActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {

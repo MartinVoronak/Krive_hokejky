@@ -2,13 +2,39 @@ package com.example.martin.krive_hokejky;
 
 public class Player {
 
-    //TODO goals and assissts
+    public String objectId;
     String firstName = "";
     String surname = "";
     int rating = 0;
+    int goals = 0;
+    int assissts = 0;
 
     //BACKENDLESS - Class must contain default, public, no-argument constructor.
     public Player() {
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getAssissts() {
+        return assissts;
+    }
+
+    public void setAssissts(int assissts) {
+        this.assissts = assissts;
     }
 
     public String getFirstName() {
