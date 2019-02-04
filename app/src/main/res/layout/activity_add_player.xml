@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords|textCapSentences"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
 
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords|textCapSentences"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
 

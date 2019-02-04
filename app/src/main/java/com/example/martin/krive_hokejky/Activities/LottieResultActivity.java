@@ -55,10 +55,9 @@ public class LottieResultActivity extends AppCompatActivity {
                 Utilities.log(LOG_LOTTIE, "onAnimationCancel, "+action.toString()+" animationName: "+Utilities.animationName+ " inAPI: "+APIcalls.inAPIcall );
 
                 if (Utilities.animationName.equals("loading.json") && action.equals(APIcalls.RETRIEVE) && APIcalls.inAPIcall == false){
+                    Utilities.log(LOG_LOTTIE, "STARTING NEW ACTIVITY" );
                     Intent intent = new Intent(LottieResultActivity.this, PlayersActivity.class);
                     finish();
-
-                    Utilities.log(LOG_LOTTIE, "STARTING NEW ACTIVITY" );
                     startActivity(intent);
                 }
             }
@@ -70,7 +69,7 @@ public class LottieResultActivity extends AppCompatActivity {
         };
 
         animationView.addAnimatorListener(animationListener);
-        Utilities.log(LOG_LOTTIE, "Before api call, "+action.toString()+" animationName: "+Utilities.animationName );
+        Utilities.log(LOG_LOTTIE, "Before api call, "+action.toString()+" animationName: "+Utilities.animationName + " inAPI: "+APIcalls.inAPIcall);
         APIcalls.doAction(action, animationView);
     }
 

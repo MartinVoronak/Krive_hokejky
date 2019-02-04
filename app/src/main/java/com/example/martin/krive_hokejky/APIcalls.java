@@ -21,6 +21,9 @@ public enum APIcalls implements Serializable {
         inAPIcall = !inAPIcall;
     }
 
+    public static List<Player> players;
+
+
     public static void doAction(APIcalls action, final LottieAnimationView animationView) {
         switch (action) {
             case CREATE:
@@ -31,7 +34,7 @@ public enum APIcalls implements Serializable {
                 animationView.loop(true);
                 animationView.playAnimation();
 
-                Player player = new Player();
+                final Player player = new Player();
                 player.setFirstName(AddPlayerActivity.editName.getText().toString());
                 player.setSurname(AddPlayerActivity.editSurname.getText().toString());
 
@@ -76,6 +79,8 @@ public enum APIcalls implements Serializable {
                 Backendless.Data.of(Player.class).find(new AsyncCallback<List<Player>>() {
                     @Override
                     public void handleResponse(List<Player> foundContacts) {
+                        players = foundContacts;
+
                         Utilities.log(LOG_BACKANDLESS, "response: classes loaded");
                         changeStateAPI();
                         animationView.cancelAnimation();
