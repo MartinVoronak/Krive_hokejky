@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerInParent="false"
-    android:layout_centerHorizontal="false"
-    android:layout_centerVertical="false"
-    android:background="#fafafa"
-    android:orientation="vertical"
-    android:weightSum="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +24,7 @@
             android:paddingTop="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="15dp"
-            app:srcCompat="@drawable/hockey_sticks" />
+            app:srcCompat="@drawable/ic_drawable_calendar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,31 +32,31 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtFullName"
+                android:id="@+id/txtAddedDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imgAddMatch"
                 android:layout_toRightOf="@+id/imgAddMatch"
                 android:layout_weight="0.85"
-                android:textSize="16dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="25dp"
                 android:paddingTop="5dp"
                 android:text="Large Text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="#2a2a2a" />
+                android:textColor="#2a2a2a"
+                android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/txtStatistics"
+                android:id="@+id/txtAddedTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 android:layout_weight="0.15"
                 android:paddingLeft="30dp"
                 android:paddingBottom="5dp"
-                android:text="small text" />
+                android:text="small text"
+                android:textSize="12dp" />
         </LinearLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

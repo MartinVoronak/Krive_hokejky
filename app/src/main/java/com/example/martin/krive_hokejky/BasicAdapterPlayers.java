@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.martin.krive_hokejky.DataObjects.Player;
+
 import java.util.List;
 
-public class BasicAdapter extends ArrayAdapter<Player> {
+public class BasicAdapterPlayers extends ArrayAdapter<Player> {
 
     List<Player> players = null;
 
-    public BasicAdapter(Context context, List<Player> menuAdapter) {
+    public BasicAdapterPlayers(Context context, List<Player> menuAdapter) {
         super(context, R.layout.single_row, menuAdapter);
         this.players = menuAdapter;
     }
@@ -28,7 +30,7 @@ public class BasicAdapter extends ArrayAdapter<Player> {
         TextView fullNameText = (TextView) customView.findViewById(R.id.txtFullName);
         fullNameText.setText(player.getSurname() + " " + player.getFirstName());
         TextView fullStatistics = (TextView) customView.findViewById(R.id.txtStatistics);
-        fullStatistics.setText("Goals: "+player.getGoals() + "    Assissts: " + player.getAssissts());
+        fullStatistics.setText("Góly: "+player.getGoals() + "    Asistencie: " + player.getAssissts()+"        Hodnotenie: "+player.getRating());
 
         return customView;
     }

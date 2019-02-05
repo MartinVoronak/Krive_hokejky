@@ -5,10 +5,10 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.martin.krive_hokejky.Activities.AddPlayerActivity;
+import com.example.martin.krive_hokejky.DataObjects.Player;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import static com.example.martin.krive_hokejky.Constants.LOG_BACKANDLESS;
 

@@ -104,7 +104,9 @@ public class HomePageActivity extends AppCompatActivity
             Intent intent = new Intent(HomePageActivity.this, PlayedMatchesActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.addMatch) {
+            Intent intent = new Intent(HomePageActivity.this, AddMatchActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
 
