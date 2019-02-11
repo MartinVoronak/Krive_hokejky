@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.martin.krive_hokejky.Activities.AddMatchActivity;
 import com.example.martin.krive_hokejky.Activities.LottieResultActivity;
 
 public class Utilities {
@@ -31,10 +32,17 @@ public class Utilities {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                         Utilities.log(Constants.LOG_ADD_PLAYER, "yes clicked");
+                        if (action.equals(APIcalls.CREATE_PLAYER)) {
 
-                        Intent intent = new Intent(context, LottieResultActivity.class);
-                        intent.putExtra("action", action);
-                        context.startActivity(intent);
+                            Intent intent = new Intent(context, LottieResultActivity.class);
+                            intent.putExtra("action", action);
+                            context.startActivity(intent);
+                        }
+                        else if (action.equals(APIcalls.CREATE_MATCH)){
+                            Intent intent = new Intent(context, LottieResultActivity.class);
+                            intent.putExtra("action", APIcalls.CREATE_MATCH);
+                            context.startActivity(intent);
+                        }
 
                     }
                 });

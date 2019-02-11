@@ -37,7 +37,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.i("AddPlayerActivity", "btn send clicked");
-                AlertDialog alertDialog = Utilities.createDialog(AddPlayerActivity.this, APIcalls.CREATE);
+                AlertDialog alertDialog = Utilities.createDialog(AddPlayerActivity.this, APIcalls.CREATE_PLAYER);
                 alertDialog.show();
 
             }

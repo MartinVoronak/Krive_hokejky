@@ -43,7 +43,7 @@ public class LottieResultActivity extends AppCompatActivity {
                     Toast.makeText(LottieResultActivity.this, "Niekde nastal problém! Skontroluj svoje internetové pripojenie.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                else if (Utilities.animationName.equals("success.json") && action.equals(APIcalls.CREATE)){
+                else if (Utilities.animationName.equals("success.json") && (action.equals(APIcalls.CREATE_PLAYER) || action.equals(APIcalls.CREATE_MATCH))){
                     Intent intent = new Intent(LottieResultActivity.this, HomePageActivity.class);
                     finish();
                     startActivity(intent);
@@ -54,7 +54,7 @@ public class LottieResultActivity extends AppCompatActivity {
             public void onAnimationCancel(Animator animation) {
                 Utilities.log(LOG_LOTTIE, "onAnimationCancel, "+action.toString()+" animationName: "+Utilities.animationName+ " inAPI: "+APIcalls.inAPIcall );
 
-                if (Utilities.animationName.equals("loading.json") && action.equals(APIcalls.RETRIEVE) && APIcalls.inAPIcall == false){
+                if (Utilities.animationName.equals("loading.json") && action.equals(APIcalls.RETRIEVE_PLAYERS) && APIcalls.inAPIcall == false){
                     Utilities.log(LOG_LOTTIE, "STARTING NEW ACTIVITY" );
                     Intent intent = new Intent(LottieResultActivity.this, PlayersActivity.class);
                     finish();

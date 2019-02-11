@@ -18,7 +18,6 @@ import static com.example.martin.krive_hokejky.Constants.LOG_LOTTIE;
 
 public class PlayersActivity extends AppCompatActivity {
 
-//    private List<Player> players = new ArrayList<>();
     private List<Player> players;
 
     @Override
@@ -27,7 +26,7 @@ public class PlayersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_players_activty);
         Utilities.log(LOG_LOTTIE, "PLAYERS ACTIVITY");
 
-        //TODO call api once and store, add refresh button
+        //TODO call api once and store, add refresh button to re-fetch players
         this.players = APIcalls.players;
 
         if (players!=null && !players.isEmpty()){
@@ -37,7 +36,6 @@ public class PlayersActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(PlayersActivity.this, "Vyskytol sa problém na strane servera. Vyskúšajte to neskôr.", Toast.LENGTH_LONG).show();
-            //TODO decide if finish() or stay
         }
     }
 }
