@@ -1,4 +1,4 @@
-package com.example.martin.krive_hokejky;
+package com.example.martin.krive_hokejky.DataObjects;
 
 public class Player {
 

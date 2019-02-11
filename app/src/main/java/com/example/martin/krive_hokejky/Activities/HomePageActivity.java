@@ -93,7 +93,7 @@ public class HomePageActivity extends AppCompatActivity
             // Handle the camera action
         } else if (id == R.id.players) {
             Intent intent = new Intent(HomePageActivity.this, LottieResultActivity.class);
-            intent.putExtra("action", APIcalls.RETRIEVE);
+            intent.putExtra("action", APIcalls.RETRIEVE_PLAYERS);
             startActivity(intent);
 
         } else if (id == R.id.addPlayer) {
@@ -104,7 +104,9 @@ public class HomePageActivity extends AppCompatActivity
             Intent intent = new Intent(HomePageActivity.this, PlayedMatchesActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.addMatch) {
+            Intent intent = new Intent(HomePageActivity.this, AddMatchActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
 

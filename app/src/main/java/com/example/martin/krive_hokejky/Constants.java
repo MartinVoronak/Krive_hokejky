@@ -10,5 +10,10 @@ public class Constants {
     public static final String LOG_ADD_PLAYER = "AddPlayerActivity";
     public static final String LOG_BACKANDLESS = "BACKENDLESS";
     public static final String LOG_LOTTIE = "Lottie";
+    public static final String LOG_DATEPICKER = "DatePicker";
+
+    //Data variables
+    public static final int preferedHourMatch = 19;
+    public static final int preferedMinuteMatch = 0;
 
 }
