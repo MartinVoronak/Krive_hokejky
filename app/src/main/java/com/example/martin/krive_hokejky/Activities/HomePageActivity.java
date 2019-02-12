@@ -1,5 +1,6 @@
 package com.example.martin.krive_hokejky.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,16 +14,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.backendless.Backendless;
 import com.example.martin.krive_hokejky.APIcalls;
+import com.example.martin.krive_hokejky.BasicAdapterAddMatches;
 import com.example.martin.krive_hokejky.Constants;
+import com.example.martin.krive_hokejky.DataObjects.Match;
+import com.example.martin.krive_hokejky.DataObjects.Player;
 import com.example.martin.krive_hokejky.R;
+import com.example.martin.krive_hokejky.Utilities;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean firstLoad = true;
+    private static  List<Match> futureMatches = new ArrayList<>();
+    private static List<Player> registeredPlayers;
+    private static ArrayAdapter<Match> futureMatchesAdapter;
+    private static ListView futureMatchesListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +68,23 @@ public class HomePageActivity extends AppCompatActivity
         Backendless.setUrl(Constants.SERVER_URL);
         Backendless.initApp(getApplicationContext(), Constants.APPLICATION_ID, Constants.API_KEY);
 
-//        if (firstLoad) {
-//            firstLoad = false;
-//
-//            Intent intentMatches = new Intent(HomePageActivity.this, LottieResultActivity.class);
-//            intentMatches.putExtra("action", APIcalls.RETRIEVE_FUTURE_MATCHES);
-//            startActivity(intentMatches);
-//
-//
-//        }
+        futureMatchesAdapter = new BasicAdapterAddMatches(this, futureMatches);
+        futureMatchesListView = (ListView)findViewById(R.id.listViewFutureMatches);
+        futureMatchesListView.setAdapter(futureMatchesAdapter);
+
+        if (firstLoad) {
+            firstLoad = false;
+
+            Intent intentMatches = new Intent(HomePageActivity.this, LottieResultActivity.class);
+            intentMatches.putExtra("action", APIcalls.RETRIEVE_FUTURE_MATCHES);
+            startActivity(intentMatches);
+        }
+    }
+
+    public static void setListViews(){
+        registeredPlayers = APIcalls.players;
+        futureMatches = APIcalls.matches;
+        futureMatchesListView.setAdapter(futureMatchesAdapter);
     }
 
     @Override
@@ -101,9 +125,7 @@ public class HomePageActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.enroll) {
-            // Handle the camera action
-        } else if (id == R.id.players) {
+        if (id == R.id.players) {
             Intent intent = new Intent(HomePageActivity.this, LottieResultActivity.class);
             intent.putExtra("action", APIcalls.RETRIEVE_PLAYERS);
             startActivity(intent);
