@@ -112,7 +112,7 @@ public enum APIcalls implements Serializable {
                 break;
 
             case RETRIEVE_FUTURE_MATCHES:
-
+                Utilities.log(LOG_BACKANDLESS, "START");
                 changeStateAPI();
                 Utilities.log(Constants.LOG_BACKANDLESS, "API call Retrieve matches");
                 animationView.loop(true);
@@ -121,6 +121,7 @@ public enum APIcalls implements Serializable {
                 Backendless.Data.of(Player.class).find(new AsyncCallback<List<Player>>() {
                     @Override
                     public void handleResponse(List<Player> foundContacts) {
+                        Utilities.log(LOG_BACKANDLESS, "PLAYERS");
                         players = foundContacts;
                         Utilities.log(LOG_BACKANDLESS, "response: players loaded");
                     }
@@ -137,7 +138,7 @@ public enum APIcalls implements Serializable {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.GERMANY);
                 String dateToCompare = dateFormat.format(now);
 
-                String whereClause = "dateMatch < '" + dateToCompare + "'";
+                String whereClause = "dateMatch > '" + dateToCompare + "'";
                 DataQueryBuilder queryBuilder = DataQueryBuilder.create();
                 queryBuilder.setWhereClause(whereClause);
 
@@ -145,6 +146,7 @@ public enum APIcalls implements Serializable {
                         new AsyncCallback<List<Match>>() {
                             @Override
                             public void handleResponse(List<Match> foundMatches) {
+                                Utilities.log(LOG_BACKANDLESS, "MATCHES");
                                 matches = foundMatches;
 
                                 Utilities.log(LOG_BACKANDLESS, "response: matches loaded");

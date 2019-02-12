@@ -67,6 +67,7 @@ public class LottieResultActivity extends AppCompatActivity {
                     Utilities.log(LOG_LOTTIE, "STARTING NEW ACTIVITY" );
                     Intent intent = new Intent(LottieResultActivity.this, HomePageActivity.class);
                     finish();
+                    HomePageActivity.setListViews();
                     startActivity(intent);
                 }
 
