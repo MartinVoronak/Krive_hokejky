@@ -15,6 +15,7 @@ import static com.example.martin.krive_hokejky.Constants.LOG_LOTTIE;
 
 public class LottieResultActivity extends AppCompatActivity {
 
+    //todo probably delete inAPI boolean
     public static LottieAnimationView animationView;
 
     @Override
@@ -32,6 +33,7 @@ public class LottieResultActivity extends AppCompatActivity {
             public void onAnimationStart(Animator animation) {
             }
 
+            //after showing SUCCESS or ERROR
             @Override
             public void onAnimationEnd(Animator animation) {
 
@@ -50,6 +52,7 @@ public class LottieResultActivity extends AppCompatActivity {
                 }
             }
 
+            //if we dont wanna show SUCCESS or ERROR
             @Override
             public void onAnimationCancel(Animator animation) {
                 Utilities.log(LOG_LOTTIE, "onAnimationCancel, "+action.toString()+" animationName: "+Utilities.animationName+ " inAPI: "+APIcalls.inAPIcall );
@@ -60,6 +63,13 @@ public class LottieResultActivity extends AppCompatActivity {
                     finish();
                     startActivity(intent);
                 }
+                else if (Utilities.animationName.equals("loading.json") && action.equals(APIcalls.RETRIEVE_FUTURE_MATCHES) && APIcalls.inAPIcall == false){
+                    Utilities.log(LOG_LOTTIE, "STARTING NEW ACTIVITY" );
+                    Intent intent = new Intent(LottieResultActivity.this, HomePageActivity.class);
+                    finish();
+                    startActivity(intent);
+                }
+
             }
 
             @Override

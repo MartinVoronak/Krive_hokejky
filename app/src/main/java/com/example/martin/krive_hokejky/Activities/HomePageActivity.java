@@ -22,6 +22,8 @@ import com.example.martin.krive_hokejky.R;
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    static boolean firstLoad = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,16 @@ public class HomePageActivity extends AppCompatActivity
 
         Backendless.setUrl(Constants.SERVER_URL);
         Backendless.initApp(getApplicationContext(), Constants.APPLICATION_ID, Constants.API_KEY);
+
+//        if (firstLoad) {
+//            firstLoad = false;
+//
+//            Intent intentMatches = new Intent(HomePageActivity.this, LottieResultActivity.class);
+//            intentMatches.putExtra("action", APIcalls.RETRIEVE_FUTURE_MATCHES);
+//            startActivity(intentMatches);
+//
+//
+//        }
     }
 
     @Override

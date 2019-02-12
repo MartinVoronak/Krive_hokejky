@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.example.martin.krive_hokejky.Constants.LOG_LOTTIE;
 
+//show players, maybe rate them
 public class PlayersActivity extends AppCompatActivity {
 
     private List<Player> players;

@@ -40,8 +40,8 @@ public class AddMatchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_match);
-
-
+        
+        //TODO check RETRIEVE MATCHES api to reduce logic
         futureMatches = new ArrayList<>();
         Calendar mcurrentDate = Calendar.getInstance();
         final int[] mYear = {mcurrentDate.get(Calendar.YEAR)};
