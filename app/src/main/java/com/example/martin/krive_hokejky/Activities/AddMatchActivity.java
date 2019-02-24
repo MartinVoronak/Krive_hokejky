@@ -130,8 +130,9 @@ public class AddMatchActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!futureMatches.isEmpty()){
-                    AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, APIcalls.CREATE_MATCH, null);
-                    alertDialog.show();
+
+                    AlertDialog alertDialogPassword = Utilities.createDialog(AddMatchActivity.this, null, "Zadaj heslo");
+                    alertDialogPassword.show();
                 }
                 else {
                     AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, null, "Nepridal si žiaden dátum!");
