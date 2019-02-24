@@ -7,6 +7,7 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.example.martin.krive_hokejky.Activities.AddMatchActivity;
 import com.example.martin.krive_hokejky.Activities.AddPlayerActivity;
+import com.example.martin.krive_hokejky.Activities.SignMatch;
 import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.DataObjects.Player;
 
@@ -20,7 +21,7 @@ import static com.example.martin.krive_hokejky.Constants.LOG_BACKANDLESS;
 
 public enum APIcalls implements Serializable {
 
-    CREATE_PLAYER, CREATE_MATCH, RETRIEVE_PLAYERS, RETRIEVE_FUTURE_MATCHES;
+    CREATE_PLAYER, CREATE_MATCH, RETRIEVE_PLAYERS, RETRIEVE_FUTURE_MATCHES, SIGN_FUTURE_MATCH;
 
     public static boolean inAPIcall = false;
     public static List<Player> players;
@@ -32,10 +33,11 @@ public enum APIcalls implements Serializable {
 
     public static void doAction(APIcalls action, final LottieAnimationView animationView) {
         switch (action) {
+
             case CREATE_PLAYER:
 
-                Utilities.log(Constants.LOG_BACKANDLESS, "API call Create player");
                 changeStateAPI();
+                Utilities.log(Constants.LOG_BACKANDLESS, "API call Create player");
 
                 animationView.loop(true);
                 animationView.playAnimation();
@@ -112,7 +114,7 @@ public enum APIcalls implements Serializable {
                 break;
 
             case RETRIEVE_FUTURE_MATCHES:
-                Utilities.log(LOG_BACKANDLESS, "START");
+
                 changeStateAPI();
                 Utilities.log(Constants.LOG_BACKANDLESS, "API call Retrieve matches");
                 animationView.loop(true);
@@ -160,6 +162,33 @@ public enum APIcalls implements Serializable {
                             }
                         });
 
+                break;
+
+            case SIGN_FUTURE_MATCH:
+
+                changeStateAPI();
+                Utilities.log(Constants.LOG_BACKANDLESS, "API call Sign to match");
+                animationView.loop(true);
+                animationView.playAnimation();
+
+//                //fetch matches from activity list
+                Match match = SignMatch.selectedMatch;
+                Utilities.log(Constants.LOG_BACKANDLESS, "match id: "+match.getObjectId());
+
+
+                //relation: update TABLE Match - column players -> add class Player
+                Backendless.Data.of(Match.class).addRelation(match, "players:Player:n", match.getPlayers(),
+                        new AsyncCallback<Integer>() {
+                            @Override
+                            public void handleResponse(Integer response) {
+                                responseOK(animationView, "" + response);
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                responseNotOK(animationView, fault.getMessage());
+                            }
+                        });
                 break;
 
             default:

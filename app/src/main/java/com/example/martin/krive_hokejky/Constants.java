@@ -11,6 +11,7 @@ public class Constants {
     public static final String LOG_BACKANDLESS = "BACKENDLESS";
     public static final String LOG_LOTTIE = "Lottie";
     public static final String LOG_DATEPICKER = "DatePicker";
+    public static final String LOG_SIGNMATCH = "SignMatch";
 
     //Data variables
     public static final int preferedHourMatch = 19;
