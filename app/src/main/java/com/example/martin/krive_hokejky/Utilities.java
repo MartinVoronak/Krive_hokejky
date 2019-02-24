@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.martin.krive_hokejky.Activities.AddMatchActivity;
 import com.example.martin.krive_hokejky.Activities.LottieResultActivity;
+import com.example.martin.krive_hokejky.Activities.PlayersActivity;
 import com.example.martin.krive_hokejky.DataObjects.Player;
 
 import java.util.Collections;
@@ -33,14 +37,42 @@ public class Utilities {
         if (action == null){
             alertDialogBuilder.setMessage(text);
 
-            alertDialogBuilder.setNegativeButton("OK",
-                    new DialogInterface.OnClickListener() {
+            if (text.equals("Zadaj heslo")){
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Utilities.log(Constants.LOG_ADD_PLAYER, "OK clicked");
-                        }
-                    });
+                final EditText input = new EditText(context);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                alertDialogBuilder.setView(input);
+
+                alertDialogBuilder.setNegativeButton("OK",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utilities.log(Constants.LOG_ADD_PLAYER, "OK clicked");
+                                if (input.getText().toString().equals("1234")){
+
+                                    AlertDialog alertDialog = Utilities.createDialog(context, APIcalls.CREATE_MATCH, null);
+                                    alertDialog.show();
+
+                                }
+                                else {
+                                    Toast.makeText(context, "Nesprávne heslo.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+            else {
+
+                alertDialogBuilder.setNegativeButton("OK",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utilities.log(Constants.LOG_ADD_PLAYER, "OK clicked");
+                            }
+                        });
+            }
         }
         else {
             alertDialogBuilder.setMessage("Naozaj chceš vykonať túto akciu?");
