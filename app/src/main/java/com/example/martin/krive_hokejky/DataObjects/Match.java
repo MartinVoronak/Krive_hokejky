@@ -8,7 +8,7 @@ public class Match implements Serializable {
 
     public String americaDateMatch;
     public String europeDateMatch;
-    public List<Player> players = new ArrayList<>();
+    public List<Player> players;
     public String objectId;
 
     public Match(){
@@ -38,12 +38,19 @@ public class Match implements Serializable {
         this.europeDateMatch = europeDate;
     }
 
+    public void addPlayer(Player p){
+        if( p == null ){
+            players = new ArrayList<Player>();
+        }
+
+        players.add(p);
+    }
+
     public List<Player> getPlayers() {
         return players;
     }
 
-    public void addPlayer(Player p){
-        players.add(p);
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
-
 }

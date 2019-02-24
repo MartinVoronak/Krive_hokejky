@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.martin.krive_hokejky.APIcalls;
+import com.example.martin.krive_hokejky.BasicAdapterPlayers;
 import com.example.martin.krive_hokejky.Constants;
 import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.DataObjects.Player;
@@ -38,6 +41,10 @@ public class SignMatch extends AppCompatActivity {
         selectedMatch = (Match) getIntent().getSerializableExtra("selectedMatch");
         Utilities.log(Constants.LOG_SIGNMATCH, "selected match date: "+selectedMatch.getEuropeDateMatch());
 
+        final TextView label = (TextView)findViewById(R.id.txtSign);
+        label.setText(""+selectedMatch.getEuropeDateMatch());
+
+
         //sort players by surname
         this.registeredPlayers = APIcalls.players;
         Collections.sort(registeredPlayers, new Comparator<Player>() {
@@ -50,8 +57,6 @@ public class SignMatch extends AppCompatActivity {
         for (Player player : registeredPlayers) {
             playersName.add(player.getSurname() +" "+ player.getFirstName());
         }
-
-
         playersName.add(0, "Vyber hráča");
 
 
@@ -91,5 +96,9 @@ public class SignMatch extends AppCompatActivity {
                 }
             }
         });
+
+        ArrayAdapter<Player> playersAdapter = new BasicAdapterPlayers(this, selectedMatch.getPlayers());
+        ListView playersListView = (ListView)findViewById(R.id.listViewSigns);
+        playersListView.setAdapter(playersAdapter);
     }
 }

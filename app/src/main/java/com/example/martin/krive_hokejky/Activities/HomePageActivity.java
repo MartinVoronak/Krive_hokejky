@@ -84,7 +84,6 @@ public class HomePageActivity extends AppCompatActivity
                 Match selectedMatch = (Match) futureMatchesAdapter.getItem(position);
                 Intent intentMatches = new Intent(HomePageActivity.this, SignMatch.class);
                 intentMatches.putExtra("selectedMatch", selectedMatch);
-                //TODO send picked match and players
                 startActivity(intentMatches);
             }
         });

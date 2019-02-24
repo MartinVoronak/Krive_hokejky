@@ -2,7 +2,7 @@ package com.example.martin.krive_hokejky.DataObjects;
 
 import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable{
 
     public String objectId;
     String firstName = "";

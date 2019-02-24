@@ -177,6 +177,7 @@ public enum APIcalls implements Serializable {
 
 
                 //relation: update TABLE Match - column players -> add class Player
+                //backendless documentation: Add Relation with objects
                 Backendless.Data.of(Match.class).addRelation(match, "players:Player:n", match.getPlayers(),
                         new AsyncCallback<Integer>() {
                             @Override
