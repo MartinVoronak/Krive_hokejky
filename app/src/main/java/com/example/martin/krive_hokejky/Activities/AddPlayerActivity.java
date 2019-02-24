@@ -42,7 +42,7 @@ public class AddPlayerActivity extends AppCompatActivity implements NavigationVi
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                AlertDialog alertDialog = Utilities.createDialog(AddPlayerActivity.this, APIcalls.CREATE_PLAYER);
+                AlertDialog alertDialog = Utilities.createDialog(AddPlayerActivity.this, APIcalls.CREATE_PLAYER, null);
                 alertDialog.show();
 
             }

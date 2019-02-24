@@ -9,6 +9,7 @@ public class Match implements Serializable {
     public String americaDateMatch;
     public String europeDateMatch;
     public List<Player> players;
+    public List<Player> unsignPlayers;
     public String objectId;
 
     public Match(){
@@ -39,6 +40,7 @@ public class Match implements Serializable {
     }
 
     public void addPlayer(Player p){
+        //from backendless example
         if( p == null ){
             players = new ArrayList<Player>();
         }
@@ -52,5 +54,14 @@ public class Match implements Serializable {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public void unsignPlayer(Player p){
+        this.unsignPlayers = new ArrayList<Player>();
+        unsignPlayers.add(p);
+    }
+
+    public List<Player> getUnsignPlayers() {
+        return unsignPlayers;
     }
 }

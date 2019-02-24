@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
@@ -19,26 +20,28 @@ import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.R;
 import com.example.martin.krive_hokejky.Utilities;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-//TODO deletable list, maybe date sort
 public class AddMatchActivity extends AppCompatActivity {
 
     public static List<Match> futureMatches;
-    ListView matchesListView;
+    public static ListView matchesListView;
+    public static ArrayAdapter<Match> futureMatchesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_match);
-        
-        //TODO check RETRIEVE MATCHES api to reduce logic
+
         futureMatches = new ArrayList<>();
         Calendar mcurrentDate = Calendar.getInstance();
         final int[] mYear = {mcurrentDate.get(Calendar.YEAR)};
@@ -60,7 +63,7 @@ public class AddMatchActivity extends AppCompatActivity {
         final SimpleDateFormat europeDateFormat = new SimpleDateFormat(myEuropeFormat, Locale.GERMANY);
 
 
-        final ArrayAdapter<Match> futureMatchesAdapter = new BasicAdapterAddMatches(this, futureMatches);
+        futureMatchesAdapter = new BasicAdapterAddMatches(this, futureMatches);
         matchesListView = (ListView) findViewById(R.id.listViewAddMatch);
         matchesListView.setAdapter(futureMatchesAdapter);
 
@@ -92,16 +95,24 @@ public class AddMatchActivity extends AppCompatActivity {
                                 Match futureMatch = new Match();
                                 futureMatch.setAmericaDateMatch(dateString);
                                 futureMatch.setEuropeDateMatch(europeDateString);
-                                futureMatches.add(futureMatch);
 
-                                futureMatchesAdapter.notifyDataSetChanged();
-                                matchesListView.setAdapter(futureMatchesAdapter);
+                                Date today = new Date();
+                                Date selected = new Date(mYear[0] - 1900, mMonth[0], mDay[0], selectedHour, selectedMinute, 0);
 
-                                Utilities.log(Constants.LOG_DATEPICKER, "List:");
-                                Utilities.log(Constants.LOG_DATEPICKER, "" + futureMatches);
-                                Utilities.log(Constants.LOG_DATEPICKER, "Full date picked: " + dateString);
+                                int value = selected.compareTo(today);
+                                if (value < 0){
+                                    AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, null, "Nemôžeš vybrať minulý dátum!");
+                                    alertDialog.show();
+                                }else {
+                                    futureMatches.add(futureMatch);
+                                    sortListView();
+                                    futureMatchesAdapter.notifyDataSetChanged();
+                                    matchesListView.setAdapter(futureMatchesAdapter);
 
-                                //TODO what if we pick past date?
+                                    Utilities.log(Constants.LOG_DATEPICKER, "List:");
+                                    Utilities.log(Constants.LOG_DATEPICKER, "" + futureMatches);
+                                    Utilities.log(Constants.LOG_DATEPICKER, "Full date picked: " + dateString);
+                                }
                             }
                         }, hour, minute, true);//Yes 24 hour time
                         mTimePicker.show();
@@ -118,9 +129,42 @@ public class AddMatchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, APIcalls.CREATE_MATCH);
-                alertDialog.show();
+                if (!futureMatches.isEmpty()){
+                    AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, APIcalls.CREATE_MATCH, null);
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog alertDialog = Utilities.createDialog(AddMatchActivity.this, null, "Nepridal si žiaden dátum!");
+                    alertDialog.show();
+                }
             }
         });
+    }
+
+    public static void sortListView(){
+
+        String myEuropeFormat = "dd.MM.yyyy HH:mm:ss";
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(myEuropeFormat, Locale.GERMANY);
+
+        //sort by date so we can see upcoming matches first
+        Collections.sort(futureMatches, new Comparator<Match>() {
+            Date date1;
+            Date date2;
+
+            public int compare(Match m1, Match m2) {
+                try {
+                    date1 = dateFormat.parse(m1.getEuropeDateMatch());
+                    date2 = dateFormat.parse(m2.getEuropeDateMatch());
+
+
+                } catch (ParseException e) {
+                    Utilities.log(Constants.LOG_DATEPICKER, "Wrong date format occured, parsing error");
+                    e.printStackTrace();
+                }
+                return date1.compareTo(date2);
+            }
+        });
+
+        matchesListView.setAdapter(futureMatchesAdapter);
     }
 }

@@ -79,25 +79,51 @@ public class SignMatch extends AppCompatActivity {
             }
         });
 
-        final Button button = findViewById(R.id.btnSignPlayer);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button btnSign = findViewById(R.id.btnSignPlayer);
+        btnSign.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 if (selectedPlayer != 0){
                     Utilities.log(Constants.LOG_SIGNMATCH, "selected player: "+registeredPlayers.get(selectedPlayer-1).getSurname());
                     selectedMatch.addPlayer(registeredPlayers.get(selectedPlayer-1));
-//
-                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, APIcalls.SIGN_FUTURE_MATCH);
+
+                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, APIcalls.SIGN_FUTURE_MATCH, null);
                     alertDialog.show();
                 }
                 else {
-                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, null);
+                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, null, "Musíš vybrať hráča!");
                     alertDialog.show();
                 }
             }
         });
 
-        ArrayAdapter<Player> playersAdapter = new BasicAdapterPlayers(this, selectedMatch.getPlayers());
+        final Button btnUnsign = findViewById(R.id.btnUnsignPlayer);
+        btnUnsign.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                if (selectedPlayer != 0){
+                    Utilities.log(Constants.LOG_SIGNMATCH, "selected player: "+registeredPlayers.get(selectedPlayer-1).getSurname());
+                    selectedMatch.unsignPlayer(registeredPlayers.get(selectedPlayer-1));
+
+                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, APIcalls.UNSIGN_FUTURE_MATCH, null);
+                    alertDialog.show();
+                }
+                else {
+                    AlertDialog alertDialog = Utilities.createDialog(SignMatch.this, null, "Musíš vybrať hráča!");
+                    alertDialog.show();
+                }
+            }
+        });
+
+
+        Collections.sort(registeredPlayers, new Comparator<Player>() {
+            @Override
+            public int compare(Player s1, Player s2) {
+                return s1.getSurname().compareToIgnoreCase(s2.getSurname());
+            }
+        });
+
+        ArrayAdapter<Player> playersAdapter = new BasicAdapterPlayers(this, Utilities.sortPlayersNames(selectedMatch.getPlayers()));
         ListView playersListView = (ListView)findViewById(R.id.listViewSigns);
         playersListView.setAdapter(playersAdapter);
     }

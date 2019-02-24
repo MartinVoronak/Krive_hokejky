@@ -7,6 +7,7 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.example.martin.krive_hokejky.Activities.AddMatchActivity;
 import com.example.martin.krive_hokejky.Activities.AddPlayerActivity;
+import com.example.martin.krive_hokejky.Activities.HomePageActivity;
 import com.example.martin.krive_hokejky.Activities.SignMatch;
 import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.DataObjects.Player;
@@ -21,7 +22,7 @@ import static com.example.martin.krive_hokejky.Constants.LOG_BACKANDLESS;
 
 public enum APIcalls implements Serializable {
 
-    CREATE_PLAYER, CREATE_MATCH, RETRIEVE_PLAYERS, RETRIEVE_FUTURE_MATCHES, SIGN_FUTURE_MATCH;
+    CREATE_PLAYER, CREATE_MATCH, RETRIEVE_PLAYERS, RETRIEVE_FUTURE_MATCHES, SIGN_FUTURE_MATCH, UNSIGN_FUTURE_MATCH;
 
     public static boolean inAPIcall = false;
     public static List<Player> players;
@@ -52,6 +53,7 @@ public enum APIcalls implements Serializable {
 
                             @Override
                             public void handleResponse(Player response) {
+                                HomePageActivity.firstLoad = true;
                                 responseOK(animationView, "" + response);
                             }
 
@@ -102,6 +104,7 @@ public enum APIcalls implements Serializable {
                     Backendless.Data.of(Match.class).create(matchesToSend, new AsyncCallback<List<String>>() {
                         @Override
                         public void handleResponse(List<String> response) {
+                            HomePageActivity.firstLoad = true;
                             responseOK(animationView, "" + response);
                         }
 
@@ -172,16 +175,43 @@ public enum APIcalls implements Serializable {
                 animationView.playAnimation();
 
 //                //fetch matches from activity list
-                Match match = SignMatch.selectedMatch;
-                Utilities.log(Constants.LOG_BACKANDLESS, "match id: "+match.getObjectId());
+                Match signMatch = SignMatch.selectedMatch;
+                Utilities.log(Constants.LOG_BACKANDLESS, "match id: "+signMatch.getObjectId());
 
 
                 //relation: update TABLE Match - column players -> add class Player
                 //backendless documentation: Add Relation with objects
-                Backendless.Data.of(Match.class).addRelation(match, "players:Player:n", match.getPlayers(),
+                Backendless.Data.of(Match.class).addRelation(signMatch, "players:Player:n", signMatch.getPlayers(),
                         new AsyncCallback<Integer>() {
                             @Override
                             public void handleResponse(Integer response) {
+                                HomePageActivity.firstLoad = true;
+                                responseOK(animationView, "" + response);
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                responseNotOK(animationView, fault.getMessage());
+                            }
+                        });
+                break;
+
+            case UNSIGN_FUTURE_MATCH:
+
+                changeStateAPI();
+                Utilities.log(Constants.LOG_BACKANDLESS, "API call Unsign to match");
+                animationView.loop(true);
+                animationView.playAnimation();
+
+                //fetch match from activity list
+                Match unsignMatch = SignMatch.selectedMatch;
+                Utilities.log(Constants.LOG_BACKANDLESS, "match id: "+unsignMatch.getObjectId());
+
+                Backendless.Data.of(Match.class).deleteRelation(unsignMatch, "players", unsignMatch.getUnsignPlayers(),
+                        new AsyncCallback<Integer>() {
+                            @Override
+                            public void handleResponse(Integer response) {
+                                HomePageActivity.firstLoad = true;
                                 responseOK(animationView, "" + response);
                             }
 

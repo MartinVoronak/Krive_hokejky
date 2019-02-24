@@ -45,7 +45,7 @@ public class LottieResultActivity extends AppCompatActivity {
                     Toast.makeText(LottieResultActivity.this, "Niekde nastal problém! Skontroluj svoje internetové pripojenie.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                else if (Utilities.animationName.equals("success.json") && (action.equals(APIcalls.CREATE_PLAYER) || action.equals(APIcalls.CREATE_MATCH) || action.equals(APIcalls.SIGN_FUTURE_MATCH))){
+                else if (Utilities.animationName.equals("success.json") && (action.equals(APIcalls.CREATE_PLAYER) || action.equals(APIcalls.CREATE_MATCH) || action.equals(APIcalls.SIGN_FUTURE_MATCH) || action.equals(APIcalls.UNSIGN_FUTURE_MATCH))){
                     Intent intent = new Intent(LottieResultActivity.this, HomePageActivity.class);
                     finish();
                     startActivity(intent);
