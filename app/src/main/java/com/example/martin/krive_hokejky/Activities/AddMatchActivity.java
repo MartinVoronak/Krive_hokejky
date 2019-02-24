@@ -2,8 +2,6 @@ package com.example.martin.krive_hokejky.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +19,6 @@ import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.R;
 import com.example.martin.krive_hokejky.Utilities;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -93,7 +90,7 @@ public class AddMatchActivity extends AppCompatActivity {
                                 String europeDateString = europeDateFormat.format(new Date(mYear[0] - 1900, mMonth[0], mDay[0], selectedHour, selectedMinute, 0));
 
                                 Match futureMatch = new Match();
-                                futureMatch.setDateMatch(dateString);
+                                futureMatch.setAmericaDateMatch(dateString);
                                 futureMatch.setEuropeDateMatch(europeDateString);
                                 futureMatches.add(futureMatch);
 

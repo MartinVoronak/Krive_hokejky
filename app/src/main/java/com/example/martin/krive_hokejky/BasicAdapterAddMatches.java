@@ -48,8 +48,7 @@ public class BasicAdapterAddMatches extends ArrayAdapter<Match> {
         final int day = Integer.parseInt(dateParts[0]);
         final int month = Integer.parseInt(dateParts[1]);
         final int year = Integer.parseInt(dateParts[2]);
-        Utilities.log(Constants.LOG_DATEPICKER, "day: "+day+" month: "+month+" year: "+year);
-
+//        Utilities.log(Constants.LOG_DATEPICKER, "day: "+day+" month: "+month+" year: "+year);
 
         ImageView img = (ImageView) customView.findViewById(R.id.imgAddMatch);
         img.setOnClickListener(new View.OnClickListener() {

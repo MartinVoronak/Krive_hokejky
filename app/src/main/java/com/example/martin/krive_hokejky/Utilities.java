@@ -24,37 +24,61 @@ public class Utilities {
 
     public static AlertDialog createDialog(final Context context, final APIcalls action){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setMessage("Naozaj chceš vykonať túto akciu?");
 
-        alertDialogBuilder.setPositiveButton("Áno",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
+        if (action == null){
+            alertDialogBuilder.setMessage("Musíš vybrať hráča!");
 
-                        Utilities.log(Constants.LOG_ADD_PLAYER, "yes clicked");
-                        if (action.equals(APIcalls.CREATE_PLAYER)) {
+            alertDialogBuilder.setNegativeButton("OK",
+                    new DialogInterface.OnClickListener() {
 
-                            Intent intent = new Intent(context, LottieResultActivity.class);
-                            intent.putExtra("action", action);
-                            context.startActivity(intent);
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Utilities.log(Constants.LOG_ADD_PLAYER, "OK clicked");
                         }
-                        else if (action.equals(APIcalls.CREATE_MATCH)){
-                            Intent intent = new Intent(context, LottieResultActivity.class);
-                            intent.putExtra("action", APIcalls.CREATE_MATCH);
-                            context.startActivity(intent);
+                    });
+        }
+        else {
+            alertDialogBuilder.setMessage("Naozaj chceš vykonať túto akciu?");
+
+            alertDialogBuilder.setPositiveButton("Áno",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                            //TODO REDUNDANT, REMOVE
+                            Utilities.log(Constants.LOG_ADD_PLAYER, "yes clicked");
+                            if (action.equals(APIcalls.CREATE_PLAYER)) {
+
+                                Intent intent = new Intent(context, LottieResultActivity.class);
+                                intent.putExtra("action", action);
+                                context.startActivity(intent);
+                            }
+                            else if (action.equals(APIcalls.CREATE_MATCH)){
+                                Intent intent = new Intent(context, LottieResultActivity.class);
+                                intent.putExtra("action", action);
+                                context.startActivity(intent);
+                            }
+                            else if (action.equals(APIcalls.SIGN_FUTURE_MATCH)){
+                                Intent intent = new Intent(context, LottieResultActivity.class);
+                                intent.putExtra("action", action);
+                                context.startActivity(intent);
+                            }
+
+
                         }
+                    });
 
-                    }
-                });
+            alertDialogBuilder.setNegativeButton("Nie",
+                    new DialogInterface.OnClickListener() {
 
-        alertDialogBuilder.setNegativeButton("Nie",
-                new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Utilities.log(Constants.LOG_ADD_PLAYER, "no clicked");
+                        }
+                    });
+        }
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Utilities.log(Constants.LOG_ADD_PLAYER, "no clicked");
-                    }
-                });
+
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         return alertDialog;

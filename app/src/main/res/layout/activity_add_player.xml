@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="Krstné meno:" />
 
         <EditText
@@ -29,16 +29,16 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textCapWords|textCapSentences"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
         <TextView
             android:id="@+id/txtSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="Priezvisko:" />
 
         <EditText
@@ -47,16 +47,17 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textCapWords|textCapSentences"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
         <Button
             android:id="@+id/btnAddPlayer"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="Odoslať" />
 
 

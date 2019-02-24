@@ -1,6 +1,5 @@
 package com.example.martin.krive_hokejky.Activities;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.airbnb.lottie.utils.Utils;
 import com.backendless.Backendless;
 import com.example.martin.krive_hokejky.APIcalls;
 import com.example.martin.krive_hokejky.BasicAdapterAddMatches;
@@ -28,15 +28,20 @@ import com.example.martin.krive_hokejky.DataObjects.Player;
 import com.example.martin.krive_hokejky.R;
 import com.example.martin.krive_hokejky.Utilities;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean firstLoad = true;
     private static  List<Match> futureMatches = new ArrayList<>();
-    private static List<Player> registeredPlayers;
     private static ArrayAdapter<Match> futureMatchesAdapter;
     private static ListView futureMatchesListView;
 
@@ -72,6 +77,18 @@ public class HomePageActivity extends AppCompatActivity
         futureMatchesListView = (ListView)findViewById(R.id.listViewFutureMatches);
         futureMatchesListView.setAdapter(futureMatchesAdapter);
 
+        futureMatchesListView.setClickable(true);
+        futureMatchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView <?> parent, View view, int position, long id) {
+                Match selectedMatch = (Match) futureMatchesAdapter.getItem(position);
+                Intent intentMatches = new Intent(HomePageActivity.this, SignMatch.class);
+                intentMatches.putExtra("selectedMatch", selectedMatch);
+                //TODO send picked match and players
+                startActivity(intentMatches);
+            }
+        });
+
         if (firstLoad) {
             firstLoad = false;
 
@@ -82,8 +99,30 @@ public class HomePageActivity extends AppCompatActivity
     }
 
     public static void setListViews(){
-        registeredPlayers = APIcalls.players;
         futureMatches = APIcalls.matches;
+
+        String myEuropeFormat = "dd.MM.yyyy HH:mm:ss";
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(myEuropeFormat, Locale.GERMANY);
+
+        //sort by date so we can see upcoming matches first
+        Collections.sort(futureMatches, new Comparator<Match>() {
+            Date date1;
+            Date date2;
+
+            public int compare(Match m1, Match m2) {
+                try {
+                    date1 = dateFormat.parse(m1.getEuropeDateMatch());
+                    date2 = dateFormat.parse(m2.getEuropeDateMatch());
+
+
+                } catch (ParseException e) {
+                    Utilities.log(Constants.LOG_DATEPICKER, "Wrong date format occured, parsing error");
+                    e.printStackTrace();
+                }
+                return date1.compareTo(date2);
+            }
+        });
+
         futureMatchesListView.setAdapter(futureMatchesAdapter);
     }
 
