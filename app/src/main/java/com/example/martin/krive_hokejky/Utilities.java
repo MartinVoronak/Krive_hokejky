@@ -9,6 +9,11 @@ import android.util.Log;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.martin.krive_hokejky.Activities.AddMatchActivity;
 import com.example.martin.krive_hokejky.Activities.LottieResultActivity;
+import com.example.martin.krive_hokejky.DataObjects.Player;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Utilities {
 
@@ -22,11 +27,11 @@ public class Utilities {
         Log.i(tag, s);
     }
 
-    public static AlertDialog createDialog(final Context context, final APIcalls action){
+    public static AlertDialog createDialog(final Context context, final APIcalls action, final String text){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         if (action == null){
-            alertDialogBuilder.setMessage("Musíš vybrať hráča!");
+            alertDialogBuilder.setMessage(text);
 
             alertDialogBuilder.setNegativeButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -45,26 +50,10 @@ public class Utilities {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
 
-                            //TODO REDUNDANT, REMOVE
                             Utilities.log(Constants.LOG_ADD_PLAYER, "yes clicked");
-                            if (action.equals(APIcalls.CREATE_PLAYER)) {
-
-                                Intent intent = new Intent(context, LottieResultActivity.class);
-                                intent.putExtra("action", action);
-                                context.startActivity(intent);
-                            }
-                            else if (action.equals(APIcalls.CREATE_MATCH)){
-                                Intent intent = new Intent(context, LottieResultActivity.class);
-                                intent.putExtra("action", action);
-                                context.startActivity(intent);
-                            }
-                            else if (action.equals(APIcalls.SIGN_FUTURE_MATCH)){
-                                Intent intent = new Intent(context, LottieResultActivity.class);
-                                intent.putExtra("action", action);
-                                context.startActivity(intent);
-                            }
-
-
+                            Intent intent = new Intent(context, LottieResultActivity.class);
+                            intent.putExtra("action", action);
+                            context.startActivity(intent);
                         }
                     });
 
@@ -82,5 +71,17 @@ public class Utilities {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         return alertDialog;
+    }
+
+    public static List<Player> sortPlayersNames(List<Player> playersList){
+
+        Collections.sort(playersList, new Comparator<Player>() {
+            @Override
+            public int compare(Player s1, Player s2) {
+                return s1.getSurname().compareToIgnoreCase(s2.getSurname());
+            }
+        });
+
+        return playersList;
     }
 }

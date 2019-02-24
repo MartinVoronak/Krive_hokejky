@@ -10,7 +10,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.martin.krive_hokejky.Activities.HomePageActivity;
 import com.example.martin.krive_hokejky.DataObjects.Match;
 
 import java.util.List;
@@ -20,13 +19,13 @@ public class BasicAdapterAddMatches extends ArrayAdapter<Match> {
     private Context context;
 
     public BasicAdapterAddMatches(Context context, List<Match> menuAdapter) {
-        super(context, R.layout.single_row_add_match, menuAdapter);
+        super(context, R.layout.single_row_show_match, menuAdapter);
         this.futureMatches = menuAdapter;
         this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         Utilities.log(Constants.LOG_DATEPICKER, position+". Creating object");
         LayoutInflater listInflater = LayoutInflater.from(getContext());
@@ -37,10 +36,10 @@ public class BasicAdapterAddMatches extends ArrayAdapter<Match> {
         String date = parts[0];
         String time = parts[1];
 
-        TextView txtEuropeDate = (TextView) customView.findViewById(R.id.txtAddedDate);
+        TextView txtEuropeDate = (TextView) customView.findViewById(R.id.txtAddDate);
         txtEuropeDate.setText(date);
 
-        TextView txtTime = (TextView) customView.findViewById(R.id.txtAddedTime);
+        TextView txtTime = (TextView) customView.findViewById(R.id.txtAddTime);
         txtTime.setText(time);
 
         //show calendar if user want to see more details
@@ -60,6 +59,14 @@ public class BasicAdapterAddMatches extends ArrayAdapter<Match> {
                     }
                 }, year, month, day);
                 mDatePicker.show();
+            }
+        });
+
+        ImageView imgDelete = (ImageView) customView.findViewById(R.id.imgAddMatchDelete);
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                futureMatches.remove(position);
+                notifyDataSetChanged();
             }
         });
 

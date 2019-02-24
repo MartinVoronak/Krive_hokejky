@@ -22,6 +22,7 @@ import com.airbnb.lottie.utils.Utils;
 import com.backendless.Backendless;
 import com.example.martin.krive_hokejky.APIcalls;
 import com.example.martin.krive_hokejky.BasicAdapterAddMatches;
+import com.example.martin.krive_hokejky.BasicAdapterShowMatches;
 import com.example.martin.krive_hokejky.Constants;
 import com.example.martin.krive_hokejky.DataObjects.Match;
 import com.example.martin.krive_hokejky.DataObjects.Player;
@@ -40,8 +41,8 @@ import java.util.Locale;
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static boolean firstLoad = true;
-    private static  List<Match> futureMatches = new ArrayList<>();
+    public static boolean firstLoad = true;
+    private static List<Match> futureMatches = new ArrayList<>();
     private static ArrayAdapter<Match> futureMatchesAdapter;
     private static ListView futureMatchesListView;
 
@@ -73,7 +74,7 @@ public class HomePageActivity extends AppCompatActivity
         Backendless.setUrl(Constants.SERVER_URL);
         Backendless.initApp(getApplicationContext(), Constants.APPLICATION_ID, Constants.API_KEY);
 
-        futureMatchesAdapter = new BasicAdapterAddMatches(this, futureMatches);
+        futureMatchesAdapter = new BasicAdapterShowMatches(this, futureMatches);
         futureMatchesListView = (ListView)findViewById(R.id.listViewFutureMatches);
         futureMatchesListView.setAdapter(futureMatchesAdapter);
 
@@ -89,6 +90,7 @@ public class HomePageActivity extends AppCompatActivity
         });
 
         if (firstLoad) {
+            Utilities.log(Constants.LOG_SIGNMATCH, "firstLoad called");
             firstLoad = false;
 
             Intent intentMatches = new Intent(HomePageActivity.this, LottieResultActivity.class);
